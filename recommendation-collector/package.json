@@ -1,0 +1,26 @@
+{
+  "name": "recommendation-collector",
+  "version": "1.0.0",
+  "description": "Collect Active Assist recommendations and store them in a Firestore database",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Google LLC",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@google-cloud/firestore": "^4.7.1",
+    "@google-cloud/pubsub": "^2.6.0",
+    "express": "^4.17.1",
+    "googleapis": "^64.0.0",
+    "nodemon": "^2.0.6",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  },
+  "devDependencies": {
+    "eslint": "^7.26.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}

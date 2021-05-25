@@ -1,0 +1,39 @@
+[
+  {
+    "name": "projects/999999999/locations/global/recommenders/google.iam.policy.Recommender/recommendations/e6a3b79d-1982-425a-abde-2e50f6e0d8f2",
+    "description": "This role has not been used during the observation window.",
+    "lastRefreshTime": "2020-11-12T08:00:00Z",
+    "primaryImpact": {
+        "category": "SECURITY"
+    },
+    "content": {
+        "operationGroups": [
+            {
+                "operations": [
+                    {
+                        "action": "remove",
+                        "resourceType": "cloudresourcemanager.googleapis.com/Project",
+                        "resource": "//cloudresourcemanager.googleapis.com/projects/999999999",
+                        "path": "/iamPolicy/bindings/*/members/*",
+                        "pathFilters": {
+                            "/iamPolicy/bindings/*/condition/expression": "",
+                            "/iamPolicy/bindings/*/members/*": "serviceAccount:sample-sa@recommendation-sample.iam.gserviceaccount.com",
+                            "/iamPolicy/bindings/*/role": "roles/gkehub.connect"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "stateInfo": {
+        "state": "ACTIVE"
+    },
+    "etag": "\"50ab32550e17f0e1\"",
+    "recommenderSubtype": "REMOVE_ROLE",
+    "associatedInsights": [
+        {
+            "insight": "projects/999999999/locations/global/insightTypes/google.iam.policy.Insight/insights/0178cf0d-c5a2-4057-93e7-c5fa8c506492"
+        }
+    ]
+  }
+]
