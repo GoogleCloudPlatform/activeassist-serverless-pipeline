@@ -8,7 +8,7 @@ how a role recommendation can be auto applied.
 
 ## How to use this example
 
-Use the [tutorial](TBD) to
+Use the [tutorial](https://cloud.google.com/architecture/using-serverless-pipelines-with-active-assist) to
 understand how to configure your Google Cloud project to setup this
 pipeline
 
