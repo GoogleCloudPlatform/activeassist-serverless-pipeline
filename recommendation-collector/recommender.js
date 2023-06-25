@@ -11,8 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-const request = require('request-promise');
+const fetch = require("node-fetch");
 const fs = require('fs');
 const {google} = require('googleapis');
 
@@ -45,16 +44,18 @@ const getToken = async () => {
 const getRecommendations =
   async (token, project, location, recommenderType) => {
     const options = {
-      // See https://cloud.google.com/recommender/docs/reference/rest/v1/projects.locations.recommenders.recommendations/list
-      uri: `https://${BASE_ENDPOINT}/projects/${project}/locations/${location}/recommenders/${recommenderType}/recommendations`,
+      method: "GET",
       headers: {
         'x-goog-user-project': project,
         'Authorization': `Bearer ${token}`,
-      },
-      json: true,
+      }
     };
 
-    return request(options);
+    // See https://cloud.google.com/recommender/docs/reference/rest/v1/projects.locations.recommenders.recommendations/list
+    return fetch(
+      `https://${BASE_ENDPOINT}/projects/${project}/locations/${location}/recommenders/${recommenderType}/recommendations`,
+      options)
+        .then(res => res.json());
   };
 
 /**
@@ -100,17 +101,20 @@ const getAllRecommendationsFromStub = () => new Promise((resolve, reject) => {
 const markClaimed = async (recommendations) => {
   const token = await getToken();
 
-  const allRequests = recommendations.map((r) => request({
-    uri: `https://${BASE_ENDPOINT}/${r.name}:markClaimed`,
-    headers: {
-      'x-goog-user-project': r.name.split('/')[1],
-      'Authorization': `Bearer ${token}`,
-    },
-    method: 'POST',
-    json: {
-      etag: r.etag,
-    },
-  }));
+  const allRequests = recommendations.map((r) => fetch(
+    `https://${BASE_ENDPOINT}/${r.name}:markClaimed`,
+    {
+      headers: {
+        'x-goog-user-project': r.name.split('/')[1],
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        etag: r.etag,
+      }),
+    })
+    .then(req=>req.json()));
 
   const result = await Promise.all(allRequests);
   console.log(result);
