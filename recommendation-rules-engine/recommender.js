@@ -11,8 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-const request = require('request-promise');
+const fetch = require("node-fetch");
 const {google} = require('googleapis');
 
 const BASE_ENDPOINT = 'recommender.googleapis.com/v1beta1';
@@ -40,14 +39,15 @@ const getToken = async () => {
 const getCurrentVersion = async (name) => {
   const token = await getToken();
 
-  const result = await request({
-    uri: `https://${BASE_ENDPOINT}/${name}`,
-    headers: {
-      'x-goog-user-project': name.split('/')[1],
-      'Authorization': `Bearer ${token}`,
-    },
-    method: 'GET',
-  });
+  const result = await fetch(
+    `https://${BASE_ENDPOINT}/${name}`,
+    {
+      headers: {
+        'x-goog-user-project': name.split('/')[1],
+        'Authorization': `Bearer ${token}`,
+      },
+      method: 'GET',
+    });
 
   console.log('Recommender getCurrentVersion', result);
 
@@ -63,17 +63,20 @@ const getCurrentVersion = async (name) => {
 const setStatus = async (name, etag, status) => {
   const token = await getToken();
 
-  const result = await request({
-    uri: `https://${BASE_ENDPOINT}/${name}:${status}`,
-    headers: {
-      'x-goog-user-project': name.split('/')[1],
-      'Authorization': `Bearer ${token}`,
-    },
-    method: 'POST',
-    json: {
-      etag: etag,
-    },
-  });
+  const result = await fetch(
+    `https://${BASE_ENDPOINT}/${name}:${status}`,
+    {
+      headers: {
+        'x-goog-user-project': name.split('/')[1],
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        etag: r.etag,
+      }),
+  })
+  .then(req=>req.json());
 
   console.log(result);
 };

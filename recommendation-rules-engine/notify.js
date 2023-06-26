@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const request = require('request-promise');
+const fetch = require("node-fetch");
 
 /**
  * Send a notification to a slack channel containing an Active Assist
@@ -38,40 +38,42 @@ const sendNotification = async (recommendation, webhookURL) => {
           }
         ))).flat();
 
-  const response = await request({
-    uri: webhookURL,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    json: {
-      'blocks': [
-        {
-          'type': 'header',
-          'text': {
-            'type': 'plain_text',
-            'text': `Project ${project}`,
-            'emoji': true,
+  const response = await fetch(
+    webhookURL,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        'blocks': [
+          {
+            'type': 'header',
+            'text': {
+              'type': 'plain_text',
+              'text': `Project ${project}`,
+              'emoji': true,
+            },
           },
-        },
-        {
-          'type': 'section',
-          'text': {
-            'type': 'mrkdwn',
-            'text': `*Impact*: ${recommendation.primaryImpact.category}`,
+          {
+            'type': 'section',
+            'text': {
+              'type': 'mrkdwn',
+              'text': `*Impact*: ${recommendation.primaryImpact.category}`,
+            },
           },
-        },
-        {
-          'type': 'section',
-          'text': {
-            'type': 'mrkdwn',
-            'text': recommendation.description,
+          {
+            'type': 'section',
+            'text': {
+              'type': 'mrkdwn',
+              'text': recommendation.description,
+            },
           },
-        },
-        ...operationsSections,
-      ],
-    },
-  });
+          ...operationsSections,
+        ],
+      }),
+    })
+    .then(req=>req.text());
 
   console.log('sendNotification', response);
 };
