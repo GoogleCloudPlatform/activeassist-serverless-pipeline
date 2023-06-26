@@ -4,7 +4,7 @@
   "description": "Collect Active Assist recommendations and store them in a Firestore database",
   "main": "main.js",
   "scripts": {
-    "start": "nodemon main.js",
+    "start": "node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,8 +15,7 @@
     "@google-cloud/pubsub": "^3.7.1",
     "express": "^4.17.1",
     "googleapis": "^64.0.0",
-    "node-fetch": "^2.6.11",
-    "nodemon": "^1.14.9"
+    "node-fetch": "^2.6.11"
   },
   "devDependencies": {
     "eslint": "^7.26.0",
