@@ -12,7 +12,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@google-cloud/firestore": "^4.7.1",
-    "express": "^4.17.1",
+    "express": "^4.22.1",
     "googleapis": "^64.0.0",
     "jsonpatch": "^3.0.1",
     "node-fetch": "^2.6.11"
