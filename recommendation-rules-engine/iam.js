@@ -40,7 +40,7 @@ const getIAMPolicy = async (project) => {
 
   const response =
     (await cloudresourcemanager.projects.getIamPolicy(request)).data;
-  console.log('getIAMPolicy', response);
+  //console.log('getIAMPolicy', response);
   return response;
 };
 
@@ -62,7 +62,7 @@ const setIAMPolicy = async (project, policy) => {
 
   const response =
     (await cloudresourcemanager.projects.setIamPolicy(request)).data;
-  console.log('setIAMPolicy', response);
+  //console.log('setIAMPolicy', response);
   return response;
 };
 

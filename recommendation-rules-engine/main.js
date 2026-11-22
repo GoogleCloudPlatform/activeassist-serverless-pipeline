@@ -33,7 +33,7 @@ app.post('/process', async (req, res) => {
     // Lookup ruleset to check if there are rules for the project,
     // recommender type and subType
     const rule = await rules.applyRules(payload);
-    console.log('Matched rule', rule);
+    //console.log('Matched rule', rule);
 
     if (rule) {
       if (rule.action == 'Notify') {
