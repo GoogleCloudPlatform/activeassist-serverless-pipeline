@@ -38,7 +38,7 @@ app.post('/run', async (req, res) => {
     // Filter by active recommendations only
     const activeRecommendations = allRecommendations.filter(
         (r) => r.stateInfo.state = 'ACTIVE');
-    console.log('activeRecommendations', activeRecommendations);
+    //console.log('activeRecommendations', activeRecommendations);
 
     // Publish messages to PubSub
     await Promise.all(activeRecommendations.map((r) => publisher.publish(r)));
